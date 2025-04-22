@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Chatbot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      width: 400px;
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #0077b6;
+      color: #ffffff;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.2em;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background: #f9fafb;
+    }
+
+    .message {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+
+    .user-message {
+      background: #caf0f8;
+      align-self: flex-end;
+    }
+
+    .bot-message {
+      background: #e1ecf4;
+      align-self: flex-start;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 15px;
+      font-size: 1em;
+      border-radius: 0;
+    }
+
+    .chat-input button {
+      background: #0077b6;
+      color: #fff;
+      border: none;
+      padding: 15px 20px;
+      cursor: pointer;
+    }
+
+    .chat-input button:hover {
+      background: #023e8a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      🩺 Medical Chatbot
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="bot-message message">Hello! I'm your medical assistant. How can I help you today?</div>
+    </div>
+
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type your message..." onkeydown="if(event.key==='Enter') sendMessage()">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const message = input.value.trim();
+      if (message === "") return;
+
+      const messagesContainer = document.getElementById("chatMessages");
+
+      // User message
+      const userMessageDiv = document.createElement("div");
+      userMessageDiv.className = "user-message message";
+      userMessageDiv.innerText = message;
+      messagesContainer.appendChild(userMessageDiv);
+
+      // Auto-scroll to bottom
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      // Clear input
+      input.value = "";
+
+      // Simulated bot response
+      const botMessageDiv = document.createElement("div");
+      botMessageDiv.className = "bot-message message";
+      botMessageDiv.innerText = "Thank you for your message. A healthcare professional will respond shortly.";
+      setTimeout(() => {
+        messagesContainer.appendChild(botMessageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
